@@ -155,8 +155,6 @@ public class LoginBean implements Serializable {
 
     public String doLogin(){
         User user = userService.findUserById(idUser);
-        List<String> projects = new ArrayList<>();
-        projects.add("{}");
         
         if( user == null ){
             User newUser = new User();
@@ -164,7 +162,6 @@ public class LoginBean implements Serializable {
             newUser.setNick(this.nickName);
             newUser.setUrlImage(this.urlImage);
             newUser.setEmail(this.email);
-            //newUser.setProjects(projects);
             userService.createUser(newUser);
         }else{
             user.setIdGoogle(this.idUser);
