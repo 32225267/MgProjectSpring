@@ -331,7 +331,7 @@
                                 </div>
                                 <div class="box-body chat" id="chat-box">
                                 </div><!-- /.chat -->
-                                <input type="hidden" class="form-control" name="id_project" id="id_project" value="#{managedProjectBean.loginBean.project.idProject}" />
+                                <input type="hidden" class="form-control" name="id_project" id="id_project" value="#{managedProjectBean.loginBean.project.id}" />
                                 <form id="addMessageChat">
                                     <div class="box-footer">
                                         <div class="input-group">
@@ -355,16 +355,16 @@
 
                                 <!-- /.chat -->
                                 <div class="box-body">
-                                    <input type="hidden" class="form-control" name="id_project" id="id_project" value="#{managedProjectBean.loginBean.project.idProject}" />
+                                    <input type="hidden" class="form-control" name="id_project" id="id_project" value="#{managedProjectBean.loginBean.project.id}" />
                                     <h:form>
                                         <div class="contacts-list">
                                             <h:outputLabel>Administrador:</h:outputLabel>
                                             <div class="contacts-list">
-                                                <h:outputText value=" #{managedProjectBean.loginBean.project.idAdmin.nick}" class="fa fa-github"/>
+                                                <h:outputText value=" #{managedProjectBean.loginBean.project.idAdmin}" class="fa fa-github"/>
                                             </div>
                                             <br />
                                             <label>Colaboradores:</label>
-                                            <ui:repeat value="#{managedProjectBean.loginBean.project.usersCollection}" var="user">
+                                            <ui:repeat value="#{managedProjectBean.list_colaborators}" var="user">
                                                 <div class="contacts-list">
                                                     <h:outputText value=" #{user.nick}" class="fa fa-github"/>
                                                 </div>
@@ -373,12 +373,12 @@
                                             <h:outputLabel rendered="#{managedProjectBean.admin}">Invitar a:</h:outputLabel>
                                             <div>
                                                 <h:selectOneMenu rendered="#{managedProjectBean.admin}" value="#{addProjectBean.idColaborador}" class="form-control">
-                                                    <f:selectItems value="#{addProjectBean.loginBean.users_list}" var="colaborador" itemValue="#{colaborador.idUser}" itemLabel="#{colaborador.nick}"></f:selectItems>
+                                                    <f:selectItems value="#{addProjectBean.loginBean.users_list}" var="colaborador" itemValue="#{colaborador.idGoogle}" itemLabel="#{colaborador.nick}"></f:selectItems>
                                                 </h:selectOneMenu>
                                             </div>
                                         </div>
                                         <br/>
-                                        <h:commandButton rendered="#{managedProjectBean.admin}" value="Invitar usuario" action="#{addProjectBean.doInvitar()}" class="btn btn-primary btn-md"/>
+                                        <h:commandButton rendered="#{managedProjectBean.admin}" value="Invitar usuario" action="#{managedProjectBean.doInvitar}" class="btn btn-primary btn-md"/>
                                         <br/>   
                                     </h:form>       
                                 </div>

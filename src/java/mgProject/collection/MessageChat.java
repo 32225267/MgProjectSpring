@@ -11,8 +11,7 @@ import org.springframework.data.annotation.Id;
  * @author inftel22
  */
 public class MessageChat {
-    @Id
-    private String id;
+    private Long id;
     private String nickUser;
     private String urlImageUser;
     private String messageText;
@@ -20,18 +19,18 @@ public class MessageChat {
     public MessageChat() {
     }
 
-    public MessageChat(String id, String nickUser, String urlImageUser, String messageText) {
-        this.id = id;
+    public MessageChat(Long id, String nickUser, String urlImageUser, String messageText) {
+        this.id = System.currentTimeMillis();
         this.nickUser = nickUser;
         this.urlImageUser = urlImageUser;
         this.messageText = messageText;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

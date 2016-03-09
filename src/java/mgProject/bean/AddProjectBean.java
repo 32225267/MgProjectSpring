@@ -5,6 +5,7 @@
  */
 package mgProject.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("request")
-public class AddProjectBean {
+public class AddProjectBean implements Serializable{
 
     @Autowired
     private UserService userService;
