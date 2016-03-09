@@ -12,23 +12,22 @@ import org.springframework.data.annotation.Id;
  * @author inftel22
  */
 public class Chat {
-    @Id
-    private String id;
+    private Long id;
     private List<MessageChat> messages;
 
     public Chat() {
     }
 
-    public Chat(String id, List<MessageChat> messages) {
-        this.id = id;
+    public Chat(Long id, List<MessageChat> messages) {
+        this.id = System.currentTimeMillis();
         this.messages = messages;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

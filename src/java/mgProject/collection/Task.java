@@ -4,15 +4,13 @@
  * and open the template in the editor.
  */
 package mgProject.collection;
-import org.springframework.data.annotation.Id;
 
 /**
  *
  * @author inftel22
  */
 public class Task {
-    @Id
-    private String id;
+    private Long id;
     private String name;
     private String time;
     private String timeType;
@@ -23,8 +21,8 @@ public class Task {
     public Task() {
     }
 
-    public Task(String id, String name, String time, String timeType, String priority, String idUser, String idProject) {
-        this.id = id;
+    public Task(Long id, String name, String time, String timeType, String priority, String idUser, String idProject) {
+        this.id = System.currentTimeMillis();
         this.name = name;
         this.time = time;
         this.timeType = timeType;
@@ -33,11 +31,11 @@ public class Task {
         this.idProject = idProject;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
