@@ -13,23 +13,23 @@
      http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
      http://www.springframework.org/schema/aop
      http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-     http://www.springframework.org/schema/data/mongo
+     http://www.springfram ework.org/schema/data/mongo
      http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
-    <context:component-scan base-package="ejemplo.collection" />
-    <context:component-scan base-package="ejemplo.repository" />
-    <context:component-scan base-package="ejemplo.service" />
-    <context:component-scan base-package="ejemplo.bean" />    
+    <context:component-scan base-package="mgProject.collection" />
+    <context:component-scan base-package="mgProject.repository" />
+    <context:component-scan base-package="mgProject.service" />
+    <context:component-scan base-package="mgProject.bean" />    
    
 
     <mongo:mongo host="127.0.0.1" port="27017"/>
-    <mongo:db-factory dbname="SocialDB"/>
+    <mongo:db-factory dbname="MgProject"/>
     
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
     </bean>
      
-    <mongo:repositories base-package="ejemplo.repository"/>  
+    <mongo:repositories base-package="mgProject.repository"/>  
 
 </beans>
