@@ -30,6 +30,10 @@ public class ProjectService {
     public Project findProjectById(String projectId){
         return repository.findProjectById(projectId);
     }
+    
+    public Project findByNameAndUser(String nameProject, String idAdmin){
+        return repository.findByNameAndUser(nameProject, idAdmin);
+    }
 
     public void createProject(Project p) {
         repository.save(p);

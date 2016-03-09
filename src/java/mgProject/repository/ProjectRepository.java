@@ -20,4 +20,7 @@ public interface ProjectRepository extends MongoRepository<Project, String>{
     @Query("{'id': ?0 }")
     public Project findProjectById(String id);
     
+    @Query("{ 'name': ?0  , 'idAdmin': ?1 }")
+    public Project findByNameAndUser(String nameProject, String idAdmin);
+    
 }
