@@ -160,6 +160,7 @@ public class LoginBean implements Serializable {
             newUser.setIdGoogle(this.idUser);
             newUser.setNick(this.nickName);
             newUser.setUrlImage(this.urlImage);
+            newUser.setEmail(this.email);
             userService.createUser(newUser);
         }else{
             user.setIdGoogle(this.idUser);

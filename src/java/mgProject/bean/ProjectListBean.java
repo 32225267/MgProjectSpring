@@ -83,7 +83,7 @@ public class ProjectListBean implements Serializable{
             }
         }
         
-        if(list.isEmpty()){
+        if(list.isEmpty() || list == null){
             error=true;
         }
     }
