@@ -71,14 +71,8 @@ public class ProjectListBean implements Serializable{
     @PostConstruct
     public void init(){
         User user = userService.findUserById(loginBean.getIdUser());
-        System.out.println(user.getNick());
-        //System.out.println(user.getProjects());
         List<String> listIdProjects = user.getProjects();
-        if (listIdProjects != null)
-            for (String listIdProject : listIdProjects) {
-                System.out.println("Proyecto: " + listIdProject);
-            }
-
+        
         if(listIdProjects != null){
             for (String listIdProject : listIdProjects) {
                 if(projectService.findProjectById(listIdProject).getIdAdmin().equals(loginBean.getIdUser())){
@@ -94,8 +88,6 @@ public class ProjectListBean implements Serializable{
             error=true;
         }
     }
-    
-
     /**
      * Creates a new instance of projectListBean
      */
