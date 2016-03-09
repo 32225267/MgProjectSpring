@@ -71,7 +71,13 @@ public class ProjectListBean implements Serializable{
     @PostConstruct
     public void init(){
         User user = userService.findUserById(loginBean.getIdUser());
+        System.out.println(user.getNick());
+        //System.out.println(user.getProjects());
         List<String> listIdProjects = user.getProjects();
+        if (listIdProjects != null)
+            for (String listIdProject : listIdProjects) {
+                System.out.println("Proyecto: " + listIdProject);
+            }
 
         if(listIdProjects != null){
             for (String listIdProject : listIdProjects) {
@@ -83,7 +89,7 @@ public class ProjectListBean implements Serializable{
             }
         }
         
-        if(list.isEmpty()){
+        if(list == null || list.isEmpty()){
             error=true;
         }
     }

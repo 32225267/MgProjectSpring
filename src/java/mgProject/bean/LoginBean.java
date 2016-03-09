@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import mgProject.service.UserService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
@@ -154,12 +155,16 @@ public class LoginBean implements Serializable {
 
     public String doLogin(){
         User user = userService.findUserById(idUser);
+        List<String> projects = new ArrayList<>();
+        projects.add("{}");
         
         if( user == null ){
             User newUser = new User();
             newUser.setIdGoogle(this.idUser);
             newUser.setNick(this.nickName);
             newUser.setUrlImage(this.urlImage);
+            newUser.setEmail(this.email);
+            //newUser.setProjects(projects);
             userService.createUser(newUser);
         }else{
             user.setIdGoogle(this.idUser);
