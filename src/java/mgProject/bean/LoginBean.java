@@ -4,42 +4,34 @@
  * and open the template in the editor.
  */
 package mgProject.bean;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-import java.io.Serializable;
 import java.io.IOException;
+import mgProject.collection.User;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import mgProject.service.UserService;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
 import mgProject.collection.Project;
 import mgProject.collection.Task;
-import mgProject.collection.User;
 import mgProject.service.ProjectService;
-import mgProject.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
-/**
- *
- * @author andresbailen93
- */
 @Component
 @Scope("session")
 public class LoginBean implements Serializable {
 
     @Autowired
-    private ProjectService projectsService;
+    private ProjectService projectService;
 
     @Autowired
-    private UserService usersService;
+    private UserService userService;
     
     private String idUser;
+    private String payload;
     private String nickName;
     private String urlImage;
     private String email;
@@ -50,12 +42,20 @@ public class LoginBean implements Serializable {
     private List<Project> list_colaborators;
     private List<User> users_list;
 
+    public String getPayload() {
+        return payload;
+    }
+
+    public void setPayload(String payload) {
+        this.payload = payload;
+    }
+
     public UserService getUsersService() {
-        return usersService;
+        return userService;
     }
 
     public void setUsersService(UserService usersService) {
-        this.usersService = usersService;
+        this.userService = usersService;
     }
 
     public String getIdUser() {
@@ -137,12 +137,10 @@ public class LoginBean implements Serializable {
     public void setUsers_list(List<User> users_list) {
         this.users_list = users_list;
     }
-    
-    
 
     public LoginBean() {
     }
-
+    
     public void init() {
         if (idUser == null) {
             singIn = false;
@@ -155,27 +153,22 @@ public class LoginBean implements Serializable {
     }
 
     public String doLogin(){
-        User user = usersService.findUsersById(idUser);
+        User user = userService.findUserById(idUser);
         
         if( user == null ){
             User newUser = new User();
             newUser.setIdGoogle(this.idUser);
             newUser.setNick(this.nickName);
             newUser.setUrlImage(this.urlImage);
-            usersService.createUser(newUser);
+            userService.createUser(newUser);
         }else{
             user.setIdGoogle(this.idUser);
             user.setNick(this.nickName);
             user.setUrlImage(this.urlImage);
-            usersService.editUser(user);
+            userService.editUser(user);
         }
         singIn = true;
-        List<String> projectIdList = user.getProjects();
-        
-        for (String projectId : projectIdList) {
-            project_list.add(projectsService.findProjectById(projectId));
-        }
-        users_list = usersService.findAllUsers();
+        users_list = userService.findAllUsers();
         
         return "index";
     }
@@ -190,4 +183,5 @@ public class LoginBean implements Serializable {
         this.project = project;
         return "project";
     }
+
 }

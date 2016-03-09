@@ -4,14 +4,11 @@
  * and open the template in the editor.
  */
 package mgProject.collection;
+
 import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
  
-/**
- *
- * @author inftel22
- */
 @Document(collection="user")
 public class User {
     @Id
@@ -21,6 +18,8 @@ public class User {
     private String urlImage;
     private String email;
     private List<String> projects;
+ 
+    public User() {}
 
     public User(String id, String idGoogle, String nick, String urlImage, String email, List<String> projects) {
         this.id = id;
@@ -30,9 +29,6 @@ public class User {
         this.email = email;
         this.projects = projects;
     }
-    
-    public User() {
-    }
 
     public String getId() {
         return id;
@@ -40,6 +36,14 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getIdGoogle() {
+        return idGoogle;
+    }
+
+    public void setIdGoogle(String idGoogle) {
+        this.idGoogle = idGoogle;
     }
 
     public String getNick() {
@@ -64,14 +68,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getIdGoogle() {
-        return idGoogle;
-    }
-
-    public void setIdGoogle(String idGoogle) {
-        this.idGoogle = idGoogle;
     }
 
     public List<String> getProjects() {

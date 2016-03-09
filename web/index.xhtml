@@ -184,8 +184,7 @@
 
                 document.getElementById('loginForm:hiddenButton').click();
 
-            }
-            ;
+            };
         </script>
 
     </h:head>
@@ -210,7 +209,7 @@
                                 <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                                 </h:form>
                                 <h:form rendered="#{loginBean.singIn}">
-                                    <h:commandLink action="profile.xhtml" rendered="#{loginBean.singIn}"><span style="margin-top: 14px;">Perfil</span></h:commandLink>
+                                    <h:commandLink action="profile.xhtml" rendered="#{loginBean.idUser != null}"><span style="margin-top: 14px;">Perfil</span></h:commandLink>
                                 </h:form>
                             </li>
                         </ul>

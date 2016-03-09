@@ -7,6 +7,7 @@ package mgProject.repository;
 
  
 import mgProject.collection.User;
+import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,14 @@ import org.springframework.stereotype.Repository;
  
 @Repository
 public interface UserRepository extends MongoRepository<User, String>{
+    @Query("{'email': ?0 }")
+    public User findUsersByEmail(String email);
+    
+    
+    @Query("{'firstname':{$regex: '.*?0.*' }}")
+    public List<User> findUsersByName(String name);
+    
+    
     @Query("{'idGoogle': ?0 }")
-    public User findUsersByIdGoogle(String idGoogle);
+    public User findUserById(String idGoogle);
 }

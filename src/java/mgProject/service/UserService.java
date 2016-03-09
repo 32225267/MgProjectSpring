@@ -21,10 +21,27 @@ public class UserService {
 
     public UserRepository getRepository() {
         return repository;
-    }    
+    }
+
+//    public User findByEmail(String email) {
+////        Query a = new Query();
+////        a.addCriteria(Criteria.where("email").is(email));
+////        ApplicationContext ac = new GenericXmlApplicationContext("SpringConfig.xml");
+////        MongoOperations mongoO = (MongoOperations) ac.getBean("mongoTemplate");
+////
+////        Users u = mongoO.findOne(a, Users.class);
+////        return u;
+//        return repository.findUsersByEmail(email);
+//    }
     
-    public User findUsersById(String id){
-        return repository.findUsersByIdGoogle(id);
+    
+    public User findUserById(String id){
+        return repository.findUserById(id);
+    }
+    
+    
+    public List<User> findUsersByName(String name){
+        return repository.findUsersByName(name);
     }
 
     public void createUser(User u) {

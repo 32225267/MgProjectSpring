@@ -5,11 +5,9 @@
  */
 package mgProject.service;
 
+import java.util.List;
 import mgProject.collection.Project;
 import mgProject.repository.ProjectRepository;
-import java.util.List;
-import mgProject.collection.User;
-import mgProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -31,6 +29,22 @@ public class ProjectService {
     
     public Project findProjectById(String projectId){
         return repository.findProjectById(projectId);
+    }
+
+    public void createProject(Project p) {
+        repository.save(p);
+    }
+    
+    public List<Project> findAllProjects() {
+        return repository.findAll();
+    }
+    
+    public void deleteProject (Project p) {
+        repository.delete(p);
+    }
+    
+    public void editProject (Project p) {
+        repository.save(p);
     }
     
 }

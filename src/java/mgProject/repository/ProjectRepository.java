@@ -16,10 +16,7 @@ import org.springframework.stereotype.Repository;
  * @author inftel22
  */
 @Repository
-public interface ProjectRepository extends MongoRepository<Project, String>{
-    @Query("{'id': ?0 }")
-    public Project findProjectsById(String id);
-    
+public interface ProjectRepository extends MongoRepository<Project, String>{    
     @Query("{'id': ?0 }")
     public Project findProjectById(String id);
     
