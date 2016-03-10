@@ -152,7 +152,6 @@ public class AddProjectBean implements Serializable{
         exito = false;
         error2 = false;
         admin = userService.findUserById(loginBean.getIdUser());
-
     }
 
     public String doAddProject() {
@@ -166,13 +165,22 @@ public class AddProjectBean implements Serializable{
 
             projectService.createProject(project);
             loginBean.setProject(project);
+            
             if (loginBean.getProject_list() == null) {
                 List<Project> newListProject = new ArrayList<>();
+                List<String> newListIdProject = new ArrayList<>();
+                
                 newListProject.add(project);
+                newListIdProject.add(project.getId());
                 loginBean.setProject_list(newListProject);
+                admin.setProjects(newListIdProject);
             } else {
                 loginBean.getProject_list().add(project);
+                System.out.println(admin.getNick() + " - " + project.getIdAdmin());
+                admin.getProjects().add(project.getId());
             }
+            
+            userService.editUser(admin);
             exito = true;
             return "project";
         } else {

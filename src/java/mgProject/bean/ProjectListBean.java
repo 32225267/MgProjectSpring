@@ -6,6 +6,7 @@
 package mgProject.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import mgProject.collection.Project;
@@ -32,9 +33,16 @@ public class ProjectListBean implements Serializable{
     @Autowired
     private ProjectService projectService;
 
-    private List<Project> list;
+    private List<Project> list = new ArrayList<>();
     private boolean error=false;
     private List<Project> listCollaborators;
+    
+
+    /**
+     * Creates a new instance of projectListBean
+     */
+    public ProjectListBean() {
+    }
 
     public List<Project> getListCollaborators() {
         return listCollaborators;
@@ -73,12 +81,21 @@ public class ProjectListBean implements Serializable{
         User user = userService.findUserById(loginBean.getIdUser());
         List<String> listIdProjects = user.getProjects();
         
+        if (listIdProjects != null){
+            for (String listIdProject : listIdProjects) {
+                System.out.println("Proyecto: " + listIdProject);
+            }
+        }
+
         if(listIdProjects != null){
             for (String listIdProject : listIdProjects) {
                 if(projectService.findProjectById(listIdProject).getIdAdmin().equals(loginBean.getIdUser())){
+                    System.out.println("Proyecto tal: " + projectService.findProjectById(listIdProject));
                     list.add(projectService.findProjectById(listIdProject));
+                    loginBean.setProject_list(list);
                 }else{
                     listCollaborators.add(projectService.findProjectById(listIdProject));
+                    loginBean.setProject_list(listCollaborators);
                 }
             }
         }
@@ -88,10 +105,6 @@ public class ProjectListBean implements Serializable{
             error=true;
         }
     }
-    /**
-     * Creates a new instance of projectListBean
-     */
-    public ProjectListBean() {
-    }
+
     
 }

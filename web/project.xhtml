@@ -360,7 +360,7 @@
                                         <div class="contacts-list">
                                             <h:outputLabel>Administrador:</h:outputLabel>
                                             <div class="contacts-list">
-                                                <h:outputText value=" #{managedProjectBean.loginBean.project.idAdmin}" class="fa fa-github"/>
+                                                <h:outputText value=" #{managedProjectBean.userAdmin.nick}" class="fa fa-github"/>
                                             </div>
                                             <br />
                                             <label>Colaboradores:</label>
@@ -372,8 +372,8 @@
                                             <br/>
                                             <h:outputLabel rendered="#{managedProjectBean.admin}">Invitar a:</h:outputLabel>
                                             <div>
-                                                <h:selectOneMenu rendered="#{managedProjectBean.admin}" value="#{addProjectBean.idColaborador}" class="form-control">
-                                                    <f:selectItems value="#{addProjectBean.loginBean.users_list}" var="colaborador" itemValue="#{colaborador.idGoogle}" itemLabel="#{colaborador.nick}"></f:selectItems>
+                                                <h:selectOneMenu rendered="#{managedProjectBean.admin}" value="#{managedProjectBean.idColaborador}" class="form-control">
+                                                    <f:selectItems value="#{managedProjectBean.loginBean.users_list}" var="colaborador" itemValue="#{colaborador.idGoogle}" itemLabel="#{colaborador.nick}"></f:selectItems>
                                                 </h:selectOneMenu>
                                             </div>
                                         </div>
@@ -391,7 +391,7 @@
 
                         <!-- Remove project button -->
                         <h:form>
-                            <h:commandButton rendered="#{managedProjectBean.admin}" class="btn btn-block btn-danger btn-flat" action="#{managedProjectBean.doDeleteProject(managedProjectBean.loginBean.project)}" value="Borrar proyecto"></h:commandButton>
+                            <h:commandButton rendered="#{managedProjectBean.admin}" class="btn btn-block btn-danger btn-flat" action="#{managedProjectBean.doDeleteProject(managedProjectBean.loginBean.project)}" value="Borrar proyecto" onclick="return confirm('¿Desea eliminar el proyecto?');"></h:commandButton>
                         </h:form><!-- /.box -->
 
                     </div><!-- /.row (main row) -->

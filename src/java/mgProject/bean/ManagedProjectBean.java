@@ -6,6 +6,7 @@
 package mgProject.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -25,28 +26,32 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("request")
-public class ManagedProjectBean implements Serializable{ 
+public class ManagedProjectBean implements Serializable {
 //    @Autowired
 //    private ChatService chatService;
+
     @Autowired
     private ProjectService projectService;
-//    @Autowired
-//    private TaskService taskFacade;
+
     @Autowired
-    private UserService userService;    
-    
+    private UserService userService;
+
     @Autowired
     private LoginBean loginBean;
-    
-    private Collection<User> list_colaborators;    
-    
+
+    private Collection<User> list_colaborators = new ArrayList<User>();
+
     private int taskAcu;
     private int taskRep;
     private int taskPln;
     private int taskAcc;
     private boolean error;
     private boolean admin;
-    
+    private User userAdmin;
+    private String IdColaborador;
+    private User colaborador;
+    private Project project;
+
     /**
      * Creates a new instance of ManagedProjectBean
      */
@@ -116,28 +121,60 @@ public class ManagedProjectBean implements Serializable{
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
-    
+
+    public User getUserAdmin() {
+        return userAdmin;
+    }
+
+    public void setUserAdmin(User userAdmin) {
+        this.userAdmin = userAdmin;
+    }
+
+    public String getIdColaborador() {
+        return IdColaborador;
+    }
+
+    public void setIdColaborador(String IdColaborador) {
+        this.IdColaborador = IdColaborador;
+    }
+
+    public User getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(User colaborador) {
+        this.colaborador = colaborador;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
     @PostConstruct
-    public void init() {  
-        
-        admin=false;
-        if(loginBean.getIdUser().equals(loginBean.getProject().getIdAdmin())){
+    public void init() {
+
+        admin = false;
+        if (loginBean.getIdUser().equals(loginBean.getProject().getIdAdmin())) {
             admin = true;
         }
-        
+
         User user = userService.findUserById(loginBean.getIdUser());
+        
         List<String> listIdCollaborators = loginBean.getProject().getCollaborators();
-        if(listIdCollaborators != null){
+        if (listIdCollaborators != null) {
             for (String idCollaborator : listIdCollaborators) {
                 list_colaborators.add(userService.findUserById(idCollaborator));
             }
         }
-        
-        if(list_colaborators == null || list_colaborators.isEmpty()){
-            error=true;
+
+        if (list_colaborators == null || list_colaborators.isEmpty()) {
+            error = true;
         }
-        
+
 //        List<Task> list_task = taskService.findTaskByProjectUser(this.loginBean.getProject());
 //        
 //        for (Task task : list_task) {
@@ -154,27 +191,67 @@ public class ManagedProjectBean implements Serializable{
 //                taskAcc++;
 //            }
 //        }
+        userAdmin = userService.findUserById(loginBean.getProject().getIdAdmin());
+        //loginBean.getUsers_list().remove(userAdmin);
     }
-    
-    public String doDeleteProject(Project project){
+
+    public String doDeleteProject(Project project) {
         Collection<Task> tasks = project.getTasks();
         Chat chat = project.getChat();
-        
+
 //        for (Chat chat : chats) {
 //            chatFacade.remove(chat);
 //        }
-        
 //        for (Task task : tasks) {
 //            taskFacade.remove(task);
 //        } 
         
+        User user = userService.findUserById(loginBean.getIdUser());
+        user.getProjects().remove(project.getId());
+        userService.editUser(user);
         projectService.deleteProject(project);
-//        loginBean.setProject_list(projectService.findByUser(usersFacade.find(loginBean.getIdUser())));
+        
+        loginBean.getProject_list().remove(project);
         
         return ("profile");
     }
-    
-    public String doInvitar(){
+
+    public String doInvitar() {
+
+        project = loginBean.getProject();
+        colaborador = (User) userService.findUserById(IdColaborador);
+        
+        //Actualiza la coleccion del proyecto
+        List<String> colaborators = new ArrayList<String>();
+        if (project.getCollaborators() == null) {
+            colaborators.add(IdColaborador);
+        } else {
+            colaborators = project.getCollaborators();
+            colaborators.add(IdColaborador);
+        }
+        project.setCollaborators(colaborators);
+        projectService.editProject(project);
+        
+        
+        //Actualiza la coleccion del usuario colaborador
+        List<String> colaborations = new ArrayList<String>();
+        if(colaborador.getProjects() == null){
+            colaborations.add(project.getId());
+        }else{
+            colaborations = colaborador.getProjects();
+            colaborations.add(project.getId());
+        }
+        colaborador.setProjects(colaborations);
+        userService.editUser(colaborador);
+        
+        
+        list_colaborators.add(colaborador);
+        
+        
+        loginBean.getUsers_list().remove(colaborador);
+        
+        
+
         return ("project");
     }
 }
