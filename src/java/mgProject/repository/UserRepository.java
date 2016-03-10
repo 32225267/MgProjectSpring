@@ -18,8 +18,8 @@ public interface UserRepository extends MongoRepository<User, String>{
     public User findUsersByEmail(String email);
     
     
-    @Query("{'name': ?0}")
-    public User findUsersByName(String name);
+    @Query("{'nick': ?0}")
+    public User findUsersByNick(String nick);
     
     
     @Query("{'idGoogle': ?0 }")

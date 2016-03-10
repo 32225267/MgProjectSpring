@@ -43,7 +43,7 @@ public class SendEmailToBean implements Serializable {
     protected User user;
     protected String emailselect;
     protected Project p;
-    protected Collection<User> listUsers;
+    protected Collection<User> listUsers = new ArrayList<>();
     protected boolean exito;
     protected String nombreusuario;
     protected String imagenusuario;
@@ -188,28 +188,28 @@ public class SendEmailToBean implements Serializable {
     @PostConstruct
     public void init() {
         user = userService.findUserById(loginBean.getIdUser());
-        System.out.println(user.getNick());
 
-            List<String> listidUsers = loginBean.getProject().getCollaborators();
+        List<String> listidUsers = loginBean.getProject().getCollaborators();
         if(listidUsers != null){
             for (String idCollaborator : listidUsers) {
                 listUsers.add(userService.findUserById(idCollaborator));
-                System.out.println(listUsers);
             }
         }
         if(listUsers == null || listUsers.isEmpty()){
             error=true;
         }
-        //listusuarios = userService.findUsersByProject(loginBean.getProject());
         listUsers.remove(user);
         exito = false;
     }
     
 
     public void doSendEmailTo() throws MessagingException {
-        emailto = userService.findUsersByName(emailselect).getEmail();
-        nombreusuario = userService.findUsersByName(emailselect).getNick();
-        imagenusuario = userService.findUsersByName(emailselect).getUrlImage();
+        System.out.println(emailselect);
+        emailto = userService.findUserById(emailselect).getEmail();
+        System.out.println(emailto);
+        nombreusuario = userService.findUserById(emailselect).getNick();
+        System.out.println(nombreusuario);
+        imagenusuario = userService.findUserById(emailselect).getUrlImage();
 
         plantilla = "<div style='background-color:#ececec;padding:0;margin:0;font-weight:200;width:100%!important'><span class='im'><div style='overflow:hidden;color:transparent;width:0;font-size:0;min-height:0'> Hola," + nombreusuario + ":&nbsp;Tu compañero" + loginBean.getNickName()
                 + "te ha enviado el siguiente mensaje: </div> </span><table align='center' border='0' cellspacing='0' cellpadding='0' style='table-layout:fixed;font-weight:200;font-family:Helvetica,Arial,sans-serif' width='100%'><tbody> <td align='center'><center style='width:100%'>"
@@ -232,7 +232,7 @@ public class SendEmailToBean implements Serializable {
                 + "<table bgcolor='#ECECEC' border='0' cellspacing='0' cellpadding='0' style='padding:0 24px;color:#999999;font-weight:200;font-family:Helvetica,Arial,sans-serif' width='100%'>  </table></td> </tr> </tbody> </table> </center></td> </tr> </tbody> </table> "
                 + "<img src='" + loginBean.getUrlImage() + "' style='outline:none;color:#ffffff;display:block;text-decoration:none;width:1px;border-color:#ececec;border-width:1px;border-style:solid;min-height:1px' class ='CToWUd'><div class='yj6qo'></div><div class='adL'> </div></div>";
 
-        Mail mail = new Mail(emailto, subject, plantilla);
+        mail = new Mail(emailto, subject, plantilla);
         mail.sendMailTo();
 
         exito = true;
