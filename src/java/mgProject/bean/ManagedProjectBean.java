@@ -41,10 +41,7 @@ public class ManagedProjectBean implements Serializable {
 
     private Collection<User> list_colaborators = new ArrayList<User>();
 
-    private int taskAcu;
-    private int taskRep;
-    private int taskPln;
-    private int taskAcc;
+
     private boolean error;
     private boolean admin;
     private User userAdmin;
@@ -75,39 +72,6 @@ public class ManagedProjectBean implements Serializable {
     public void setList_colaborators(Collection<User> list_colaborators) {
         this.list_colaborators = list_colaborators;
     }
-
-    public int getTaskAcu() {
-        return taskAcu;
-    }
-
-    public void setTaskAcu(int taskAcu) {
-        this.taskAcu = taskAcu;
-    }
-
-    public int getTaskRep() {
-        return taskRep;
-    }
-
-    public void setTaskRep(int taskRep) {
-        this.taskRep = taskRep;
-    }
-
-    public int getTaskPln() {
-        return taskPln;
-    }
-
-    public void setTaskPln(int taskPln) {
-        this.taskPln = taskPln;
-    }
-
-    public int getTaskAcc() {
-        return taskAcc;
-    }
-
-    public void setTaskAcc(int taskAcc) {
-        this.taskAcc = taskAcc;
-    }
-
     public boolean isError() {
         return error;
     }
@@ -188,26 +152,7 @@ public class ManagedProjectBean implements Serializable {
             error = true;
         }
 
-        List<Task> list_task = new ArrayList<>();
-        list_task = loginBean.getProject().getTasks();
 
-        if (list_task != null) {
-
-            for (Task task : list_task) {
-                if (task.getPriority().equals("acuciante")) {
-                    taskAcu++;
-                }
-                if (task.getPriority().equals("repentino")) {
-                    taskRep++;
-                }
-                if (task.getPriority().equals("plani")) {
-                    taskPln++;
-                }
-                if (task.getPriority().equals("accesorio")) {
-                    taskAcc++;
-                }
-            }
-        }
         userAdmin = userService.findUserById(loginBean.getProject().getIdAdmin());
 
     }
