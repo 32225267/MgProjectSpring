@@ -176,16 +176,16 @@
                                             <h:column>
                                                 <div style="float: left">
                                                     <!-- Emphasis label -->
-                                                    <h:outputLabel rendered="#{task.priority eq 'acuciante'}" class="label label-danger"><i class="fa fa-clock-o" ></i> <h:outputText value=" #{task.time} "/><h:outputText value="#{task.timetype}"/></h:outputLabel>
-                                                    <h:outputLabel rendered="#{task.priority eq 'repentino'}" class="label label-warning"><i class="fa fa-clock-o" ></i> <h:outputText value=" #{task.time} "/><h:outputText value="#{task.timetype}"/></h:outputLabel>
-                                                    <h:outputLabel rendered="#{task.priority eq 'plani'}" class="label label-success"><i class="fa fa-clock-o" ></i> <h:outputText value=" #{task.time} "/><h:outputText value="#{task.timetype}"/></h:outputLabel>
-                                                    <h:outputLabel rendered="#{task.priority eq 'accesorio'}" class="label label-info"><i class="fa fa-clock-o" ></i> <h:outputText value=" #{task.time} "/><h:outputText value="#{task.timetype}"/></h:outputLabel>
+                                                    <h:outputLabel rendered="#{task.priority eq 'acuciante'}" class="label label-danger"><i class="fa fa-clock-o" ></i> <h:outputText value=" #{task.time} "/><h:outputText value="#{task.timeType}"/></h:outputLabel>
+                                                    <h:outputLabel rendered="#{task.priority eq 'repentino'}" class="label label-warning"><i class="fa fa-clock-o" ></i> <h:outputText value=" #{task.time} "/><h:outputText value="#{task.timeType}"/></h:outputLabel>
+                                                    <h:outputLabel rendered="#{task.priority eq 'plani'}" class="label label-success"><i class="fa fa-clock-o" ></i> <h:outputText value=" #{task.time} "/><h:outputText value="#{task.timeType}"/></h:outputLabel>
+                                                    <h:outputLabel rendered="#{task.priority eq 'accesorio'}" class="label label-info"><i class="fa fa-clock-o" ></i> <h:outputText value=" #{task.time} "/><h:outputText value="#{task.timeType}"/></h:outputLabel>
                                                 </div>
                                             </h:column>
                                             <h:column>
                                                 <h:form>
                                                     <div class="">
-                                                        <h:outputLabel onclick="showEditItem(#{task.idTask})" rendered="#{(task.usersCollection[0].idUser eq managedProjectBean.loginBean.idUser) or managedProjectBean.admin}" ><i class="fa fa-edit" style="color:red;cursor: pointer; margin-right: 6px;"></i></h:outputLabel>
+                                                        <h:outputLabel onclick="showEditItem(#{task.id})" rendered="#{(task.idUser eq managedProjectBean.loginBean.idUser) or managedProjectBean.admin}" ><i class="fa fa-edit" style="color:red;cursor: pointer; margin-right: 6px;"></i></h:outputLabel>
                                                         <h:commandLink action="#{managedTaskBean.doDeleteTask(task)}" onclick="return confirm('¿Seguro que quieres borrar la tarea?');" rendered="#{managedProjectBean.admin}"><i class="fa fa-trash-o" style="color:red; margin-right: 2px" ></i></h:commandLink>
                                                     </div>
                                                 </h:form>
@@ -195,12 +195,12 @@
                                         <h:dataTable id="editTable" var="task" value="#{managedTaskBean.task_list}" style="width:100%;">
                                             <h:column>
                                                 <h:form>
-                                                    <div class="collapse" id="#{task.idTask}" style="display:none;" >   
+                                                    <div class="collapse" id="#{task.id}" style="display:none;" >   
                                                         <div class="form-group" style="width: 49%; display: inline-block">
                                                             <h:inputText class="form-control" value="#{task.time}" />
                                                         </div>
                                                         <div class="form-group" style="width: 50%; display: inline-block">
-                                                            <h:selectOneMenu id="timeTask#{task.idTask}" class="form-control" value="#{task.timetype}" >
+                                                            <h:selectOneMenu id="timeTask#{task.id}" class="form-control" value="#{task.timeType}" >
                                                                 <f:selectItem itemLabel="Unidad de tiempo" itemValue="default" />
                                                                 <f:selectItem itemLabel="Minutos" itemValue="mins" />
                                                                 <f:selectItem itemLabel="Horas" itemValue="hours" />
@@ -220,9 +220,9 @@
                                                         <div class="form-group" style="width: 50%; display: inline-block">
                                                             
                                                             <h:selectOneMenu id="taskTo" class="form-control" value="#{managedTaskBean.editUser}" rendered="#{managedProjectBean.admin}">
-                                                                <f:selectItem itemValue="#{task.usersCollection[0].idUser}" itemLabel="#{task.usersCollection[0].nick}"/> 
+                                                                <f:selectItem itemValue="#{task.idUser}" itemLabel="#{loginBean.nickName}"/> 
                                                                 <f:selectItem itemValue="#{managedTaskBean.loginBean.idUser}" itemLabel="#{managedTaskBean.loginBean.nickName}"/>
-                                                                <f:selectItems value="#{managedTaskBean.loginBean.project.usersCollection}" var="user" itemValue="#{user.idUser}" itemLabel="#{user.nick}"/>
+                                                                <f:selectItems value="#{managedTaskBean.collaboratorUser_list}" var="user" itemValue="#{user.idGoogle}" itemLabel="#{user.nick}"/>
                                                             </h:selectOneMenu>
                                                             <h:selectOneMenu id="taskToME" class="form-control" value="#{managedTaskBean.editUser}" rendered="#{!managedProjectBean.admin}">
                                                                 <f:selectItem itemLabel="#{managedTaskBean.loginBean.nickName}" itemValue="#{managedTaskBean.loginBean.idUser}"/>
@@ -271,7 +271,7 @@
                                             <div class="form-group" style="width: 50%; display: inline-block">
                                                 <h:selectOneMenu id="taskTo" class="form-control" value="#{managedTaskBean.userid}" rendered="#{managedProjectBean.admin}">
                                                     <f:selectItem itemValue="#{managedTaskBean.loginBean.idUser}" itemLabel="#{managedTaskBean.loginBean.nickName}"/>
-                                                    <f:selectItems value="#{managedTaskBean.loginBean.project.usersCollection}" var="user" itemValue="#{user.idUser}" itemLabel="#{user.nick}"/>
+                                                    <f:selectItems value="#{managedTaskBean.collaboratorUser_list}" var="user" itemValue="#{user.idGoogle}" itemLabel="#{user.nick}"/>
                                                 </h:selectOneMenu>
                                                 <h:selectOneMenu id="taskToME" class="form-control" value="#{managedTaskBean.userid}" rendered="#{!managedProjectBean.admin}">
                                                     <f:selectItem itemLabel="#{managedTaskBean.loginBean.nickName}" itemValue="#{managedTaskBean.loginBean.idUser}"/>

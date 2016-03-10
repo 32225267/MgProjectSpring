@@ -19,6 +19,7 @@ public class Task {
     private String idProject;
 
     public Task() {
+        this.id = System.currentTimeMillis();
     }
 
     public Task(Long id, String name, String time, String timeType, String priority, String idUser, String idProject) {

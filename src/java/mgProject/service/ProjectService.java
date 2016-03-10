@@ -7,6 +7,7 @@ package mgProject.service;
 
 import java.util.List;
 import mgProject.collection.Project;
+import mgProject.collection.Task;
 import mgProject.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
