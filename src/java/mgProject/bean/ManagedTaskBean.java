@@ -33,6 +33,9 @@ public class ManagedTaskBean implements Serializable {
 
     @Autowired
     private ProjectService projectService;
+    
+    @Autowired
+    private ManagedProjectBean managedProjectBean;
 
     private String name;
     private Long idproject;
@@ -43,18 +46,18 @@ public class ManagedTaskBean implements Serializable {
     private String userid;
     private boolean taskNoAdded;
     private String editUser;
-    private List<User> collaboratorUser_list;
+   // private List<User> collaboratorUser_list;
 
     public LoginBean getLoginBean() {
         return loginBean;
     }
-
-    public List<User> getCollaboratorUser_list() {
-        return collaboratorUser_list;
+   
+    public ManagedProjectBean getManagedProjectBean() {
+        return managedProjectBean;
     }
 
-    public void setCollaboratorUser_list(List<User> collaboratorUser_list) {
-        this.collaboratorUser_list = collaboratorUser_list;
+    public void setManagedProjectBean(ManagedProjectBean managedProjectBean) {   
+        this.managedProjectBean = managedProjectBean;
     }
 
     public void setLoginBean(LoginBean loginBean) {
@@ -141,14 +144,6 @@ public class ManagedTaskBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        //Buscando los colaboradores de este proyecto
-        this.loginBean.getProject().getCollaborators();
-        if (this.loginBean.getProject().getCollaborators() != null) {
-            for (String idUser : this.loginBean.getProject().getCollaborators()) {
-                this.collaboratorUser_list = new ArrayList<>();
-                this.collaboratorUser_list.add(this.userService.findUserById(idUser));
-            }
-        }
 
         this.task_list = this.loginBean.getProject().getTasks();
         this.taskNoAdded = false;
@@ -173,16 +168,10 @@ public class ManagedTaskBean implements Serializable {
 
             this.loginBean.getProject().setTasks(tasksadded);
             projectService.editProject(this.loginBean.getProject());
-
-            if (this.task_list == null) {
-                task_list = new ArrayList<>();
-                task_list.add(addTask);
-            } else {
-                this.task_list.add(addTask);
-            }
         } else {
             this.taskNoAdded = true;
         }
+        
         this.name = "";
         this.time = "";
         this.timeType = "";
@@ -204,12 +193,12 @@ public class ManagedTaskBean implements Serializable {
     public String doEditTask(Task task) {
         List<Task> taskEdit_list = this.loginBean.getProject().getTasks();
         
-        for (int i = 0; i <= taskEdit_list.size(); i++) {
+        for (int i = 0; i < taskEdit_list.size(); i++) {
             if(taskEdit_list.get(i).getId().equals(task.getId())){
-                taskEdit_list.get(i).setName(this.name);
-                taskEdit_list.get(i).setPriority(this.priority);
-                taskEdit_list.get(i).setTime(this.time);
-                taskEdit_list.get(i).setIdUser(this.editUser);
+                taskEdit_list.get(i).setPriority(task.getPriority());
+                taskEdit_list.get(i).setTime(task.getTime());
+                taskEdit_list.get(i).setTimeType(task.getTimeType());
+                taskEdit_list.get(i).setIdUser(task.getIdUser());
             }
             
         }
