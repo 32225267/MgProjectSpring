@@ -51,8 +51,9 @@ public class ManagedProjectBean implements Serializable {
     private String IdColaborador;
     private User colaborador;
     private Project project;
-    
+
     private List<User> users_list = new ArrayList<>();
+
     /**
      * Creates a new instance of ManagedProjectBean
      */
@@ -163,10 +164,6 @@ public class ManagedProjectBean implements Serializable {
         this.users_list = users_list;
     }
 
-   
-    
-    
-
     @PostConstruct
     public void init() {
 
@@ -176,12 +173,11 @@ public class ManagedProjectBean implements Serializable {
         }
 
         User user = userService.findUserById(loginBean.getIdUser());
-        
+
         users_list = userService.findAllUsers();
-        
-        
+
         List<String> listIdCollaborators = loginBean.getProject().getCollaborators();
-        
+
         if (listIdCollaborators != null) {
             for (String idCollaborator : listIdCollaborators) {
                 list_colaborators.add(userService.findUserById(idCollaborator));
@@ -192,25 +188,34 @@ public class ManagedProjectBean implements Serializable {
             error = true;
         }
 
-//        List<Task> list_task = taskService.findTaskByProjectUser(this.loginBean.getProject());
-//        
-//        for (Task task : list_task) {
-//            if(task.getPriority().equals("acuciante")){
-//                taskAcu++;
-//            }
-//            if(task.getPriority().equals("repentino")){
-//                taskRep++;
-//            }
-//            if(task.getPriority().equals("plani")){
-//                taskPln++;
-//            }
-//            if(task.getPriority().equals("accesorio")){
-//                taskAcc++;
-//            }
-//        }
-        userAdmin = userService.findUserById(loginBean.getProject().getIdAdmin());
-        
-    }
+       
+       List<Task> list_task = new ArrayList<>();
+       list_task = loginBean.getProject().getTasks();
+       
+         System.out.println("Alerta 2");
+        if (list_task != null) {
+     
+             System.out.println("Alerta 3");
+            for (Task task : list_task) {
+                if (task.getPriority().equals("acuciante")) {
+                    taskAcu++;
+                }
+                if (task.getPriority().equals("repentino")) {
+                    taskRep++;
+                }
+                if (task.getPriority().equals("plani")) {
+                    taskPln++;
+                }
+                if (task.getPriority().equals("accesorio")) {
+                    taskAcc++;
+                }
+            }
+        }
+            userAdmin = userService.findUserById(loginBean.getProject().getIdAdmin());
+
+        }
+
+    
 
     public String doDeleteProject(Project project) {
         Collection<Task> tasks = project.getTasks();
@@ -222,14 +227,13 @@ public class ManagedProjectBean implements Serializable {
 //        for (Task task : tasks) {
 //            taskFacade.remove(task);
 //        } 
-        
         User user = userService.findUserById(loginBean.getIdUser());
         user.getProjects().remove(project.getId());
         userService.editUser(user);
         projectService.deleteProject(project);
-        
+
         loginBean.getProject_list().remove(project);
-        
+
         return ("profile");
     }
 
@@ -237,7 +241,7 @@ public class ManagedProjectBean implements Serializable {
 
         project = loginBean.getProject();
         colaborador = (User) userService.findUserById(IdColaborador);
-        
+
         //Actualiza la coleccion del proyecto
         List<String> colaborators = new ArrayList<String>();
         if (project.getCollaborators() == null) {
@@ -248,26 +252,29 @@ public class ManagedProjectBean implements Serializable {
         }
         project.setCollaborators(colaborators);
         projectService.editProject(project);
-        
-        
+
         //Actualiza la coleccion del usuario colaborador
         List<String> colaborations = new ArrayList<String>();
-        if(colaborador.getProjects() == null){
+        if (colaborador.getProjects() == null) {
             colaborations.add(project.getId());
-        }else{
+        } else {
             colaborations = colaborador.getProjects();
             colaborations.add(project.getId());
         }
         colaborador.setProjects(colaborations);
         userService.editUser(colaborador);
-        
-        
+
         list_colaborators.add(colaborador);
-        
-        
+
+        for (User u : users_list) {
+            System.out.println(u.getNick());
+        }
+
         users_list.remove(colaborador);
-        
-        
+
+        for (User u : users_list) {
+            System.out.println(u.getNick());
+        }
 
         return ("project");
     }
