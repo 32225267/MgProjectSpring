@@ -222,7 +222,7 @@
                                                             <h:selectOneMenu id="taskTo" class="form-control" value="#{managedTaskBean.editUser}" rendered="#{managedProjectBean.admin}">
                                                                 <f:selectItem itemValue="#{task.idUser}" itemLabel="#{loginBean.nickName}"/> 
                                                                 <f:selectItem itemValue="#{managedTaskBean.loginBean.idUser}" itemLabel="#{managedTaskBean.loginBean.nickName}"/>
-                                                                <f:selectItems value="#{managedTaskBean.collaboratorUser_list}" var="user" itemValue="#{user.id}" itemLabel="#{user.nick}"/>
+                                                                <f:selectItems value="#{managedTaskBean.collaboratorUser_list}" var="user" itemValue="#{user.idGoogle}" itemLabel="#{user.nick}"/>
                                                             </h:selectOneMenu>
                                                             <h:selectOneMenu id="taskToME" class="form-control" value="#{managedTaskBean.editUser}" rendered="#{!managedProjectBean.admin}">
                                                                 <f:selectItem itemLabel="#{managedTaskBean.loginBean.nickName}" itemValue="#{managedTaskBean.loginBean.idUser}"/>
@@ -271,7 +271,7 @@
                                             <div class="form-group" style="width: 50%; display: inline-block">
                                                 <h:selectOneMenu id="taskTo" class="form-control" value="#{managedTaskBean.userid}" rendered="#{managedProjectBean.admin}">
                                                     <f:selectItem itemValue="#{managedTaskBean.loginBean.idUser}" itemLabel="#{managedTaskBean.loginBean.nickName}"/>
-                                                    <f:selectItems value="#{managedTaskBean.collaboratorUser_list}" var="user" itemValue="#{user.id}" itemLabel="#{user.nick}"/>
+                                                    <f:selectItems value="#{managedTaskBean.collaboratorUser_list}" var="user" itemValue="#{user.idGoogle}" itemLabel="#{user.nick}"/>
                                                 </h:selectOneMenu>
                                                 <h:selectOneMenu id="taskToME" class="form-control" value="#{managedTaskBean.userid}" rendered="#{!managedProjectBean.admin}">
                                                     <f:selectItem itemLabel="#{managedTaskBean.loginBean.nickName}" itemValue="#{managedTaskBean.loginBean.idUser}"/>

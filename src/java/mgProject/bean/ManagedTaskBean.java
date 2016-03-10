@@ -145,6 +145,7 @@ public class ManagedTaskBean implements Serializable {
         this.loginBean.getProject().getCollaborators();
         if (this.loginBean.getProject().getCollaborators() != null) {
             for (String idUser : this.loginBean.getProject().getCollaborators()) {
+                this.collaboratorUser_list = new ArrayList<>();
                 this.collaboratorUser_list.add(this.userService.findUserById(idUser));
             }
         }

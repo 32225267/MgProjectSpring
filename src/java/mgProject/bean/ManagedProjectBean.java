@@ -165,6 +165,7 @@ public class ManagedProjectBean implements Serializable {
         User user = userService.findUserById(loginBean.getIdUser());
         
         List<String> listIdCollaborators = loginBean.getProject().getCollaborators();
+        
         if (listIdCollaborators != null) {
             for (String idCollaborator : listIdCollaborators) {
                 list_colaborators.add(userService.findUserById(idCollaborator));
