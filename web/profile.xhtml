@@ -104,7 +104,7 @@
 
                     </div>
 
-                     <ui:repeat var="project" value="#{projectListBean.list}">
+                     <ui:repeat var="project" value="#{loginBean.project_list}">
                         <div class="col-lg-4 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-green">
@@ -124,7 +124,7 @@
                         </div>
                     </ui:repeat>
 
-                     <ui:repeat var="projectCollaborator" value="#{projectListBean.listCollaborators}">
+                     <ui:repeat var="projectCollaborator" value="#{loginBean.list_colaborators}">
                         <div class="col-lg-4 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-aqua">

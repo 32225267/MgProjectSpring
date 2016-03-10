@@ -52,9 +52,7 @@
                         <li class="treeview">
                             <a href="#"><i class="fa fa-folder-open"></i> <span>Proyectos de Colaboración</span> <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-                                <div>
-                                    <h:outputText rendered="#{projectListBean.error}" value="Vacio"/>
-                                </div>
+                                
                                 <ui:repeat value="#{loginBean.list_colaborators}" var="project">
                                     <li>
                                         <h:commandLink id="addProject" action="#{loginBean.doRedirectToProject(project)}">

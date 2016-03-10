@@ -171,6 +171,22 @@ public class LoginBean implements Serializable {
         }
         
         singIn = true;
+        
+        User u = userService.findUserById(this.idUser);
+        List<String> listIdProjects = user.getProjects();
+        
+        if(listIdProjects != null){
+            for (String listIdProject : listIdProjects) {
+                if(projectService.findProjectById(listIdProject).getIdAdmin().equals(this.idUser)){
+                    this.project_list.add(projectService.findProjectById(listIdProject));
+                    
+                }else{
+                    this.list_colaborators.add(projectService.findProjectById(listIdProject));
+                    
+                }
+            }
+        }
+        
         users_list = userService.findAllUsers();
         
 
