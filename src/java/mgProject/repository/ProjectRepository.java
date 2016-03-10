@@ -7,6 +7,7 @@ package mgProject.repository;
 
 import java.util.List;
 import mgProject.collection.Project;
+import mgProject.collection.Task;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;

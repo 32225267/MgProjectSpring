@@ -32,8 +32,7 @@ public class ManagedProjectBean implements Serializable {
 
     @Autowired
     private ProjectService projectService;
-//    @Autowired
-//    private TaskService taskFacade;
+
     @Autowired
     private UserService userService;
 
@@ -182,6 +181,7 @@ public class ManagedProjectBean implements Serializable {
         
         
         List<String> listIdCollaborators = loginBean.getProject().getCollaborators();
+        
         if (listIdCollaborators != null) {
             for (String idCollaborator : listIdCollaborators) {
                 list_colaborators.add(userService.findUserById(idCollaborator));
