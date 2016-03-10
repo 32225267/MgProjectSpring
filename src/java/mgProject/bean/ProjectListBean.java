@@ -35,7 +35,7 @@ public class ProjectListBean implements Serializable{
 
     private List<Project> list = new ArrayList<>();
     private boolean error=false;
-    private List<Project> listCollaborators;
+    private List<Project> listCollaborators = new ArrayList<>();
     
 
     /**
@@ -81,16 +81,9 @@ public class ProjectListBean implements Serializable{
         User user = userService.findUserById(loginBean.getIdUser());
         List<String> listIdProjects = user.getProjects();
         
-        if (listIdProjects != null){
-            for (String listIdProject : listIdProjects) {
-                System.out.println("Proyecto: " + listIdProject);
-            }
-        }
-
         if(listIdProjects != null){
             for (String listIdProject : listIdProjects) {
                 if(projectService.findProjectById(listIdProject).getIdAdmin().equals(loginBean.getIdUser())){
-                    System.out.println("Proyecto tal: " + projectService.findProjectById(listIdProject));
                     list.add(projectService.findProjectById(listIdProject));
                     loginBean.setProject_list(list);
                 }else{
