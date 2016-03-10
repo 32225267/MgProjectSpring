@@ -401,7 +401,7 @@
                             <h:inputTextarea id="message" value="#{sendEmailBean.message}" cols="30" rows="5" class="form-control" p:placeholder="Escriba pregunta"></h:inputTextarea>
                         </div>
                         <div class="form-group ">
-                            <h:commandButton class="btn btn-primary btn-lg" value="Enviar Mensaje" action="#{sendEmailBean.doSendMail}" />
+                            <h:commandButton class="btn btn-primary btn-lg" value="Enviar Mensaje" action="#{sendEmailBean.doSendMail()}" />
                         </div>
                         <h:outputText value="Email enviado correctamente" rendered="#{sendEmailBean.exito}" class="alert alert-success center-block small-margin"/>
                         </h:form>

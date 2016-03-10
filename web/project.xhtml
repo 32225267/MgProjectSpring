@@ -297,7 +297,7 @@
                                     <h:form>
                                         <div class="form-group">
                                             <h:selectOneMenu id="email" value="#{sendEmailToBean.emailselect}" class="form-control">
-                                                <f:selectItems value="#{sendEmailToBean.listusuarios}" var="usuario" itemValue="#{usuario.idUser}" itemLabel="#{usuario.nick}"></f:selectItems>
+                                                <f:selectItems value="#{sendEmailToBean.listUsers}" var="usuario" itemValue="#{usuario.id}" itemLabel="#{usuario.nick}"></f:selectItems>
                                             </h:selectOneMenu>
                                         </div>
                                         <div class="form-group">
@@ -449,13 +449,13 @@
         <!-- AdminLTE for demo purposes -->
         <script src="themes/dist/js/demo.js"></script>
         <script type="text/javascript">
-                                                    function showAddItem() {
-                                                        if (document.getElementById('addNewItem').style.display === 'block') {
-                                                            document.getElementById('addNewItem').style.display = 'none';
-                                                        } else {
-                                                            document.getElementById('addNewItem').style.display = 'block';
-                                                        }
-                                                    }
+            function showAddItem() {
+                if (document.getElementById('addNewItem').style.display === 'block') {
+                    document.getElementById('addNewItem').style.display = 'none';
+                } else {
+                    document.getElementById('addNewItem').style.display = 'block';
+                }
+            }
         </script>
         <script type="text/javascript">
             function showEditItem(idTask) {
