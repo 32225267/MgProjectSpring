@@ -188,14 +188,11 @@ public class ManagedProjectBean implements Serializable {
             error = true;
         }
 
-       
-       List<Task> list_task = new ArrayList<>();
-       list_task = loginBean.getProject().getTasks();
-       
-         System.out.println("Alerta 2");
+        List<Task> list_task = new ArrayList<>();
+        list_task = loginBean.getProject().getTasks();
+
         if (list_task != null) {
-     
-             System.out.println("Alerta 3");
+
             for (Task task : list_task) {
                 if (task.getPriority().equals("acuciante")) {
                     taskAcu++;
@@ -211,11 +208,9 @@ public class ManagedProjectBean implements Serializable {
                 }
             }
         }
-            userAdmin = userService.findUserById(loginBean.getProject().getIdAdmin());
+        userAdmin = userService.findUserById(loginBean.getProject().getIdAdmin());
 
-        }
-
-    
+    }
 
     public String doDeleteProject(Project project) {
         Collection<Task> tasks = project.getTasks();
