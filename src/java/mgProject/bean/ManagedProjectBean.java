@@ -206,9 +206,14 @@ public class ManagedProjectBean implements Serializable {
 //        for (Task task : tasks) {
 //            taskFacade.remove(task);
 //        } 
+        
+        User user = userService.findUserById(loginBean.getIdUser());
+        user.getProjects().remove(project.getId());
+        userService.editUser(user);
         projectService.deleteProject(project);
-//        loginBean.setProject_list(projectService.findByUser(usersFacade.find(loginBean.getIdUser())));
-
+        
+        loginBean.getProject_list().remove(project);
+        
         return ("profile");
     }
 
