@@ -39,7 +39,7 @@ public class ManagedProjectBean implements Serializable {
     @Autowired
     private LoginBean loginBean;
 
-    private Collection<User> list_colaborators = new ArrayList<User>();
+    private List<User> list_colaborators = new ArrayList<User>();
 
 
     private boolean error;
@@ -65,11 +65,11 @@ public class ManagedProjectBean implements Serializable {
         this.loginBean = loginBean;
     }
 
-    public Collection<User> getList_colaborators() {
+    public List<User> getList_colaborators() {
         return list_colaborators;
     }
 
-    public void setList_colaborators(Collection<User> list_colaborators) {
+    public void setList_colaborators(List<User> list_colaborators) {
         this.list_colaborators = list_colaborators;
     }
     public boolean isError() {
@@ -139,7 +139,13 @@ public class ManagedProjectBean implements Serializable {
         User user = userService.findUserById(loginBean.getIdUser());
 
         users_list = userService.findAllUsers();
-
+        for(int i = 0; i<users_list.size();i++){
+            if(users_list.get(i).getIdGoogle().equals(user.getIdGoogle())){
+                users_list.remove(i);
+            }
+        }
+        
+        
         List<String> listIdCollaborators = loginBean.getProject().getCollaborators();
 
         if (listIdCollaborators != null) {
@@ -151,6 +157,14 @@ public class ManagedProjectBean implements Serializable {
         if (list_colaborators == null || list_colaborators.isEmpty()) {
             error = true;
         }
+        for(int i=0; i< users_list.size();i++){
+            for(int j=0;j<list_colaborators.size();j++){
+                if(users_list.get(i).getIdGoogle().equals(list_colaborators.get(j).getIdGoogle())){
+                    users_list.remove(i);
+                }
+            }
+        }
+
 
 
         userAdmin = userService.findUserById(loginBean.getProject().getIdAdmin());
@@ -205,17 +219,9 @@ public class ManagedProjectBean implements Serializable {
         userService.editUser(colaborador);
 
         list_colaborators.add(colaborador);
-
-        for (User u : users_list) {
-            System.out.println(u.getNick());
-        }
-
         users_list.remove(colaborador);
 
-        for (User u : users_list) {
-            System.out.println(u.getNick());
-        }
-
+        IdColaborador = "";
         return ("project");
     }
 }
