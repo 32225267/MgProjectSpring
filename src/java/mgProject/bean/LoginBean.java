@@ -170,12 +170,11 @@ public class LoginBean implements Serializable {
             userService.editUser(user);
         }
         
+        User u = userService.findUserById(idUser);
         singIn = true;
         
-        User u = userService.findUserById(this.idUser);
-        List<String> listIdProjects = user.getProjects();
-        
-        if(listIdProjects != null){
+        if(u.getProjects() != null){
+            List<String> listIdProjects = u.getProjects();
             for (String listIdProject : listIdProjects) {
                 if(projectService.findProjectById(listIdProject).getIdAdmin().equals(this.idUser)){
                     this.project_list.add(projectService.findProjectById(listIdProject));
@@ -188,7 +187,6 @@ public class LoginBean implements Serializable {
         }
         
         users_list = userService.findAllUsers();
-        
 
         return "index";
     }

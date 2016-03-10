@@ -8,7 +8,6 @@ package mgProject.bean;
 import mgProject.collection.Mail;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.mail.MessagingException;
@@ -34,16 +33,17 @@ public class SendEmailToBean implements Serializable {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProjectService projectService;
     
     Mail mail;
-    
     protected String message;
     protected String subject;
     protected String emailto;
     protected User user;
     protected String emailselect;
     protected Project p;
-    protected Collection<User> listUsers = new ArrayList<>();
+    protected List<User> listUsers = new ArrayList<>();
     protected boolean exito;
     protected String nombreusuario;
     protected String imagenusuario;
@@ -82,8 +82,6 @@ public class SendEmailToBean implements Serializable {
         this.user = user;
     }
 
-
-
     public String getEmailselect() {
         return emailselect;
     }
@@ -100,15 +98,13 @@ public class SendEmailToBean implements Serializable {
         this.p = p;
     }
 
-    public Collection<User> getListUsers() {
+    public List<User> getListUsers() {
         return listUsers;
     }
 
-    public void setListUsers(Collection<User> listUsers) {
+    public void setListUsers(List<User> listUsers) {
         this.listUsers = listUsers;
     }
-
-
 
     public boolean isExito() {
         return exito;
@@ -142,7 +138,6 @@ public class SendEmailToBean implements Serializable {
         this.plantilla = plantilla;
     }
 
-
     public LoginBean getLoginBean() {
         return loginBean;
     }
@@ -159,11 +154,8 @@ public class SendEmailToBean implements Serializable {
         this.userService = userService;
     }
 
-
-
     public SendEmailToBean() {
     }
-
 
     public boolean isError() {
         return error;
@@ -181,10 +173,6 @@ public class SendEmailToBean implements Serializable {
         this.mail = mail;
     }
     
-    
-    
-    
-    
     @PostConstruct
     public void init() {
         user = userService.findUserById(loginBean.getIdUser());
@@ -194,21 +182,23 @@ public class SendEmailToBean implements Serializable {
             for (String idCollaborator : listidUsers) {
                 listUsers.add(userService.findUserById(idCollaborator));
             }
+            listUsers.add(userService.findUserById(loginBean.getProject().getIdAdmin()));
         }
         if(listUsers == null || listUsers.isEmpty()){
             error=true;
         }
-        listUsers.remove(user);
+        for(int i = 0; i<listUsers.size();i++){
+            if(listUsers.get(i).getIdGoogle().equals(user.getIdGoogle())){
+                listUsers.remove(i);
+            }
+        }
+        
         exito = false;
     }
-    
 
     public void doSendEmailTo() throws MessagingException {
-        System.out.println(emailselect);
         emailto = userService.findUserById(emailselect).getEmail();
-        System.out.println(emailto);
         nombreusuario = userService.findUserById(emailselect).getNick();
-        System.out.println(nombreusuario);
         imagenusuario = userService.findUserById(emailselect).getUrlImage();
 
         plantilla = "<div style='background-color:#ececec;padding:0;margin:0;font-weight:200;width:100%!important'><span class='im'><div style='overflow:hidden;color:transparent;width:0;font-size:0;min-height:0'> Hola," + nombreusuario + ":&nbsp;Tu compañero" + loginBean.getNickName()

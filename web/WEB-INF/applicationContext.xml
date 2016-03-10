@@ -25,6 +25,16 @@
     <mongo:mongo host="127.0.0.1" port="27017"/>
     <mongo:db-factory dbname="SocialDB"/>
     
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="view">
+                    <bean class="scopes.ViewScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />

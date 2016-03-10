@@ -18,18 +18,16 @@ public class Project {
     private String idAdmin;
     private List<String> collaborators;
     private List<Task> tasks;
-    private Chat chat;
  
     public Project() {}
 
-    public Project(String id, String name, String description, String idAdmin, List<String> collaborators, List<Task> tasks, Chat chat) {
+    public Project(String id, String name, String description, String idAdmin, List<String> collaborators, List<Task> tasks) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.idAdmin = idAdmin;
         this.collaborators = collaborators;
         this.tasks = tasks;
-        this.chat = chat;
     }
 
     public String getId() {
@@ -78,17 +76,5 @@ public class Project {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
-    }
-
-    public Chat getChat() {
-        return chat;
-    }
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
-    }
-    
-    
-        
-        
+    }        
 }

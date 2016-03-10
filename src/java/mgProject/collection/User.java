@@ -20,7 +20,9 @@ public class User {
     private String email;
     private List<String> projects = new ArrayList<>();
  
-    public User() {}
+    public User() {
+        this.projects = new ArrayList<>();
+    }
 
     public User(String id, String idGoogle, String nick, String urlImage, String email, List<String> projects) {
         this.id = id;

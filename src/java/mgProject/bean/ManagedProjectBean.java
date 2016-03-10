@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import mgProject.collection.Chat;
 import mgProject.collection.Project;
 import mgProject.collection.Task;
 import mgProject.collection.User;
@@ -25,11 +24,9 @@ import org.springframework.stereotype.Component;
  * @author inftel22
  */
 @Component
-@Scope("request")
+@Scope("view")
 public class ManagedProjectBean implements Serializable {
-//    @Autowired
-//    private ChatService chatService;
-
+    
     @Autowired
     private ProjectService projectService;
 
@@ -40,15 +37,12 @@ public class ManagedProjectBean implements Serializable {
     private LoginBean loginBean;
 
     private List<User> list_colaborators = new ArrayList<User>();
-
-
     private boolean error;
     private boolean admin;
     private User userAdmin;
     private String IdColaborador;
     private User colaborador;
     private Project project;
-
     private List<User> users_list = new ArrayList<>();
 
     /**
@@ -145,7 +139,6 @@ public class ManagedProjectBean implements Serializable {
             }
         }
         
-        
         List<String> listIdCollaborators = loginBean.getProject().getCollaborators();
 
         if (listIdCollaborators != null) {
@@ -157,6 +150,7 @@ public class ManagedProjectBean implements Serializable {
         if (list_colaborators == null || list_colaborators.isEmpty()) {
             error = true;
         }
+        
         for(int i=0; i< users_list.size();i++){
             for(int j=0;j<list_colaborators.size();j++){
                 if(users_list.get(i).getIdGoogle().equals(list_colaborators.get(j).getIdGoogle())){
@@ -164,23 +158,13 @@ public class ManagedProjectBean implements Serializable {
                 }
             }
         }
-
-
-
+        
         userAdmin = userService.findUserById(loginBean.getProject().getIdAdmin());
 
     }
 
     public String doDeleteProject(Project project) {
         Collection<Task> tasks = project.getTasks();
-        Chat chat = project.getChat();
-
-//        for (Chat chat : chats) {
-//            chatFacade.remove(chat);
-//        }
-//        for (Task task : tasks) {
-//            taskFacade.remove(task);
-//        } 
         User user = userService.findUserById(loginBean.getIdUser());
         user.getProjects().remove(project.getId());
         userService.editUser(user);

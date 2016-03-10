@@ -18,16 +18,14 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("request")
 public class SendEmailBean implements Serializable {
-
-    Mail mail;
     
+    Mail mail;    
     private String destiny;
     private String message;
     private String subject;
     private String name;
     protected boolean exito = false;
     protected String template;
-
 
     public String getMessage() {
         return message;
@@ -84,8 +82,6 @@ public class SendEmailBean implements Serializable {
     public void setDestiny(String destiny) {
         this.destiny = destiny;
     }
-    
-    
 
     public SendEmailBean() {
     }
@@ -114,6 +110,5 @@ public class SendEmailBean implements Serializable {
         subject = "";
 
     }
-
     
 }

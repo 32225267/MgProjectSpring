@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import mgProject.collection.Task;
-import mgProject.collection.User;
 import mgProject.service.ProjectService;
 import mgProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import org.springframework.stereotype.Component;
  * @author andresbailen93
  */
 @Component
-@Scope("request")
+@Scope("view")
 public class ManagedTaskBean implements Serializable {
 
     @Autowired
@@ -46,7 +45,6 @@ public class ManagedTaskBean implements Serializable {
     private String userid;
     private boolean taskNoAdded;
     private String editUser;
-   // private List<User> collaboratorUser_list;
 
     public LoginBean getLoginBean() {
         return loginBean;
@@ -144,7 +142,6 @@ public class ManagedTaskBean implements Serializable {
 
     @PostConstruct
     public void init() {
-
         this.task_list = this.loginBean.getProject().getTasks();
         this.taskNoAdded = false;
     }

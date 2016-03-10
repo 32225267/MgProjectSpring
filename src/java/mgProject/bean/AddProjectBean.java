@@ -176,7 +176,6 @@ public class AddProjectBean implements Serializable{
                 admin.setProjects(newListIdProject);
             } else {
                 loginBean.getProject_list().add(project);
-                System.out.println(admin.getNick() + " - " + project.getIdAdmin());
                 admin.getProjects().add(project.getId());
             }
             

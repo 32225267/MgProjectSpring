@@ -15,17 +15,12 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
-
-
 /**
  *
  * @author Paloma
  */
 
-public class Mail {
-    
-    
+public class Mail {    
     String servidorSMTP = "smtp.gmail.com";
     String puerto = "587";
     String usuario = "palmargom1@gmail.com";
@@ -130,7 +125,7 @@ public class Mail {
     }
    
     
-     public void sendMailTo() throws AddressException, MessagingException {
+    public void sendMailTo() throws AddressException, MessagingException {
         Properties props = new Properties();
         
         props.put("mail.debug", "false");
@@ -142,8 +137,6 @@ public class Mail {
         props.setProperty("mail.password", password);
         
         Session session = Session.getInstance(props, null);
-        
-        
         
         MimeMessage message = new MimeMessage(session);
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(destiny));
