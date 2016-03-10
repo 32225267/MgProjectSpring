@@ -37,10 +37,10 @@ public class LoginBean implements Serializable {
     private String urlImage;
     private String email;
     private boolean singIn;
-    private List<Project> project_list;
+    private List<Project> project_list = new ArrayList<>();
     private Project project;
     private Task editTask;
-    private List<Project> list_colaborators;
+    private List<Project> list_colaborators = new ArrayList<>();
     private List<User> users_list;
 
     public String getPayload() {
@@ -169,6 +169,7 @@ public class LoginBean implements Serializable {
             user.setUrlImage(this.urlImage);
             userService.editUser(user);
         }
+        
         singIn = true;
         users_list = userService.findAllUsers();
         

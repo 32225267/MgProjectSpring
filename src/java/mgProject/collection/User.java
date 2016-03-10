@@ -5,6 +5,7 @@
  */
 package mgProject.collection;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,7 +18,7 @@ public class User {
     private String nick;
     private String urlImage;
     private String email;
-    private List<String> projects;
+    private List<String> projects = new ArrayList<>();
  
     public User() {}
 

@@ -391,7 +391,7 @@
 
                         <!-- Remove project button -->
                         <h:form>
-                            <h:commandButton rendered="#{managedProjectBean.admin}" class="btn btn-block btn-danger btn-flat" action="#{managedProjectBean.doDeleteProject(managedProjectBean.loginBean.project)}" value="Borrar proyecto"></h:commandButton>
+                            <h:commandButton rendered="#{managedProjectBean.admin}" class="btn btn-block btn-danger btn-flat" action="#{managedProjectBean.doDeleteProject(managedProjectBean.loginBean.project)}" value="Borrar proyecto" onclick="return confirm('¿Desea eliminar el proyecto?');"></h:commandButton>
                         </h:form><!-- /.box -->
 
                     </div><!-- /.row (main row) -->
