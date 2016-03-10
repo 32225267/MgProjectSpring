@@ -27,9 +27,12 @@ public class UserService {
         return repository.findUserById(id);
     }
     
+    public User findUsersByName(String nick){
+        return repository.findUsersByNick(nick);
+    }
     
-    public List<User> findUsersByName(String name){
-        return repository.findUsersByName(name);
+    public User findUsersByEmail(String email) {
+        return repository.findUsersByEmail(email);
     }
 
     public void createUser(User u) {
