@@ -373,7 +373,7 @@
                                             <h:outputLabel rendered="#{managedProjectBean.admin}">Invitar a:</h:outputLabel>
                                             <div>
                                                 <h:selectOneMenu rendered="#{managedProjectBean.admin}" value="#{managedProjectBean.idColaborador}" class="form-control">
-                                                    <f:selectItems value="#{managedProjectBean.loginBean.users_list}" var="colaborador" itemValue="#{colaborador.idGoogle}" itemLabel="#{colaborador.nick}"></f:selectItems>
+                                                    <f:selectItems value="#{managedProjectBean.users_list}" var="colaborador" itemValue="#{colaborador.idGoogle}" itemLabel="#{colaborador.nick}"></f:selectItems>
                                                 </h:selectOneMenu>
                                             </div>
                                         </div>
