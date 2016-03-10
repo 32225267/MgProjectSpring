@@ -52,7 +52,8 @@ public class ManagedProjectBean implements Serializable {
     private String IdColaborador;
     private User colaborador;
     private Project project;
-
+    
+    private List<User> users_list = new ArrayList<>();
     /**
      * Creates a new instance of ManagedProjectBean
      */
@@ -155,6 +156,18 @@ public class ManagedProjectBean implements Serializable {
         this.project = project;
     }
 
+    public List<User> getUsers_list() {
+        return users_list;
+    }
+
+    public void setUsers_list(List<User> users_list) {
+        this.users_list = users_list;
+    }
+
+   
+    
+    
+
     @PostConstruct
     public void init() {
 
@@ -164,6 +177,9 @@ public class ManagedProjectBean implements Serializable {
         }
 
         User user = userService.findUserById(loginBean.getIdUser());
+        
+        users_list = userService.findAllUsers();
+        
         
         List<String> listIdCollaborators = loginBean.getProject().getCollaborators();
         if (listIdCollaborators != null) {
@@ -193,7 +209,7 @@ public class ManagedProjectBean implements Serializable {
 //            }
 //        }
         userAdmin = userService.findUserById(loginBean.getProject().getIdAdmin());
-        //loginBean.getUsers_list().remove(userAdmin);
+        
     }
 
     public String doDeleteProject(Project project) {
@@ -249,7 +265,7 @@ public class ManagedProjectBean implements Serializable {
         list_colaborators.add(colaborador);
         
         
-        loginBean.getUsers_list().remove(colaborador);
+        users_list.remove(colaborador);
         
         
 
