@@ -172,8 +172,8 @@ public class LoginBean implements Serializable {
         
         singIn = true;
         users_list = userService.findAllUsers();
-       
         
+
         return "index";
     }
     
