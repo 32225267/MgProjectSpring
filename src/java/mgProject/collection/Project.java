@@ -18,17 +18,30 @@ public class Project {
     private String idAdmin;
     private List<String> collaborators;
     private List<Task> tasks;
+    private List<Attatchment> attatchment;
  
     public Project() {}
 
-    public Project(String id, String name, String description, String idAdmin, List<String> collaborators, List<Task> tasks) {
+
+
+    public Project(String id, String name, String description, String idAdmin, List<String> collaborators, List<Task> tasks, List<Attatchment> attatchment) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.idAdmin = idAdmin;
         this.collaborators = collaborators;
         this.tasks = tasks;
+        this.attatchment = attatchment;
     }
+
+    public List<Attatchment> getAttatchment() {
+        return attatchment;
+    }
+
+    public void setAttatchment(List<Attatchment> attatchment) {
+        this.attatchment = attatchment;
+    }
+    
 
     public String getId() {
         return id;
